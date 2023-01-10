@@ -20,8 +20,8 @@ const UploadForm = () => {
 
   return (
     <form action="">
-      <label htmlFor="">
-        <input type="file" onChange={changeHandler} />
+      <label htmlFor="select">
+        <input id = "select" type="file" onChange={changeHandler} />
         <span>+</span>
       </label>
         <div className='output'>
