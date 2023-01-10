@@ -17,7 +17,7 @@ const useStorage = (file) => {
        }, (err) => { 
          setError(err);
        }, async () => {
-         const url = storageRef.getDownloadURL();
+         const url = await storageRef.getDownloadURL();
          setUrl(url);
        })
     }, [file])
