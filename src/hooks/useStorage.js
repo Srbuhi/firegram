@@ -26,17 +26,18 @@ const useStorage = (file) => {
               setError(err);
           },
             async () => {
-              getDownloadURL(uploadTask.snapshot.ref).then((url) =>
-                  setUrl(url)
-              );
+            //   getDownloadURL(uploadTask.snapshot.ref).then((url) =>
+            //       setUrl(url)
+            //   );
+
+            const url = await getDownloadURL(uploadTask.snapshot.ref);
+                 setUrl(url);
+
             //   const createdAt = timestamp();
-              const createdAt = 123;
-            //  imagesCollectionRef.add({ url, createdAt })
             try {
                 const docRef = await addDoc(collection(projectFirestore, "images"), {
-                  first: "Ada",
-                  last: "Lovelace",
-                  born: 1815
+                  url:  url, 
+                  name: file.name              
                 });
                 console.log("Document written with ID: ", docRef.id);
               } catch (e) {
