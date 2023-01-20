@@ -3,6 +3,7 @@ import { useState , useEffect } from 'react';
 import { projectStorage, projectFirestore }  from '../firebase/config';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { collection, addDoc } from 'firebase/firestore'; 
+import { serverTimestamp } from 'firebase/firestore';
 
 const useStorage = (file) => {
     const [progress, setProgress] = useState(0);
@@ -25,11 +26,7 @@ const useStorage = (file) => {
           (err) => {
               setError(err);
           },
-            async () => {
-            //   getDownloadURL(uploadTask.snapshot.ref).then((url) =>
-            //       setUrl(url)
-            //   );
-
+            async () => {      
             const url = await getDownloadURL(uploadTask.snapshot.ref);
                  setUrl(url);
 
@@ -37,7 +34,8 @@ const useStorage = (file) => {
             try {
                 const docRef = await addDoc(collection(projectFirestore, "images"), {
                   url:  url, 
-                  name: file.name              
+                  name: file.name,
+                  timestamp: serverTimestamp()              
                 });
                 console.log("Document written with ID: ", docRef.id);
               } catch (e) {
