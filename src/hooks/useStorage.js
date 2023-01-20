@@ -30,7 +30,6 @@ const useStorage = (file) => {
             const url = await getDownloadURL(uploadTask.snapshot.ref);
                  setUrl(url);
 
-            //   const createdAt = timestamp();
             try {
                 const docRef = await addDoc(collection(projectFirestore, "images"), {
                   url:  url, 
